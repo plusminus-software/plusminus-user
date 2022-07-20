@@ -9,7 +9,7 @@ public interface UserService {
     boolean isRegistered(String username);
 
     @Nullable
-    User findUser(String username, String password);
+    User findUser(String email, String password);
 
     void register(User user);
 

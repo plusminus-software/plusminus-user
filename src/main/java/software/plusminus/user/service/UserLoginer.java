@@ -1,5 +1,6 @@
 package software.plusminus.user.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import software.plusminus.security.Loginer;
@@ -18,12 +19,14 @@ public class UserLoginer implements Loginer {
     
     private TenantWrapper tenantWrapper;
     private UserService userService;
-    private List<SecurityParameterProvider> parameterProviders;
+    @Autowired(required = false)
+    private List<SecurityParameterProvider> parameterProviders = Collections.emptyList();
     
     @Nullable
     @Override
     public Security login(String username, String password) {
-        User user = tenantWrapper.callWithTenantIfNeeded(username, () -> userService.findUser(username, password));
+        User user = tenantWrapper.callWithTenantIfNeeded(username,
+                () -> userService.findUser(username, password));
         if (user == null) {
             return null;
         }

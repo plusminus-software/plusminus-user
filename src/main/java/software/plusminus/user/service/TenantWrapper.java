@@ -39,6 +39,7 @@ public class TenantWrapper {
     }
 
     private String getTenantFromEmail(String email) {
+        //TODO use HostTenantProvider instead?
         int start = email.indexOf("+");
         int end = email.indexOf("@");
         if (start == -1 || end == -1 || start > end) {
