@@ -28,9 +28,9 @@ import javax.validation.constraints.Size;
 @FilterDef(name = "tenantFilter", parameters = @ParamDef(name = "tenant", type = "string"))
 @Filter(name = "tenantFilter", condition = "tenant = :tenant")
 @Table(uniqueConstraints = {
-        @UniqueConstraint(columnNames = { "username", "tenant" }),
-        @UniqueConstraint(columnNames = { "email", "tenant" }),
-        @UniqueConstraint(columnNames = { "phone", "tenant" }),
+    @UniqueConstraint(columnNames = { "username", "tenant" }),
+    @UniqueConstraint(columnNames = { "email", "tenant" }),
+    @UniqueConstraint(columnNames = { "phone", "tenant" }),
 })
 @Entity
 public class User {

@@ -5,14 +5,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import software.plusminus.security.Security;
-import software.plusminus.test.SeleniumTest;
+import software.plusminus.selenium.model.WebTestOptions;
+import software.plusminus.test.BrowserTest;
 import software.plusminus.user.model.User;
 
 import java.util.Collections;
 
 import static software.plusminus.check.Checks.check;
 
-public class UserLoginerTest extends SeleniumTest {
+public class UserCredentialServiceTest extends BrowserTest {
     
     @Autowired
     private UserService userService;
@@ -22,6 +23,12 @@ public class UserLoginerTest extends SeleniumTest {
     private String tenant = "tenant1@email.com";
     private String email = "tenant1+user1@email.com";
     private String password = "test-password";
+
+    @Override
+    protected WebTestOptions options() {
+        return super.options()
+                .logsFilter(e -> !e.getMessage().contains("favicon"));
+    }
 
     @Override
     protected String url() {

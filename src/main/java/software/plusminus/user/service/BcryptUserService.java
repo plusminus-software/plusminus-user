@@ -1,7 +1,7 @@
 package software.plusminus.user.service;
 
+import lombok.AllArgsConstructor;
 import org.mindrot.jbcrypt.BCrypt;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import software.plusminus.user.model.User;
@@ -9,11 +9,11 @@ import software.plusminus.user.repository.UserRepository;
 
 import javax.annotation.Nullable;
 
-@Service
+@AllArgsConstructor
 @Transactional
+@Service
 public class BcryptUserService implements UserService {
 
-    @Autowired
     private UserRepository userRepository;
 
     @Override

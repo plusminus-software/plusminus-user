@@ -1,20 +1,21 @@
 package software.plusminus.user.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.stereotype.Component;
+import software.plusminus.context.Context;
 import software.plusminus.user.exception.TenantParsingException;
 
 import java.util.concurrent.Callable;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 
+@ConditionalOnClass(HttpServletRequest.class)
+@AllArgsConstructor
 @Component
 public class TenantWrapper {
     
-    @Autowired
-    private HttpServletRequest request;
-    @PersistenceContext
+    private Context<HttpServletRequest> httpServletRequestContext;
     private EntityManager entityManager;
     
     public <T> T callWithTenantIfNeeded(String username, Callable<T> callable) {
@@ -31,7 +32,9 @@ public class TenantWrapper {
     }
     
     private boolean isTenantFromEmail() {
-        String tenantFromEmail = request.getParameter("tenantFromEmail");
+        String tenantFromEmail = httpServletRequestContext.optional()
+                .map(request -> request.getParameter("tenantFromEmail"))
+                .orElse(null);
         if (tenantFromEmail == null) {
             return false;
         }
