@@ -47,8 +47,8 @@ public class UserCredentialServiceTest extends BrowserTest {
         Security security = objectMapper.readValue(json, Security.class);
         check(security.getUsername()).is(user.getUsername());
         check(security.getRoles()).is("admin");
-        check(security.getOthers().get("tenant")).is(user.getTenant());
-        check(security.getOthers().get("email")).is(user.getEmail());
+        check(security.getParameters().get("tenant")).is(user.getTenant());
+        check(security.getParameters().get("email")).is(user.getEmail());
     }
     
     private User createUser() {

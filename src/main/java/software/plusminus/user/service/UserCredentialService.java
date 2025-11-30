@@ -29,14 +29,14 @@ public class UserCredentialService implements CredentialService {
         return Security.builder()
                 .username(user.getUsername())
                 .roles(user.getRoles())
-                .others(getOthers(user))
+                .parameters(getParameters(user))
                 .build();
     }
     
-    private Map<String, String> getOthers(User user) {
-        Map<String, String> others = new LinkedHashMap<>();
-        others.put("tenant", user.getTenant());
-        others.put("email", user.getEmail());
-        return Collections.unmodifiableMap(others);
+    private Map<String, String> getParameters(User user) {
+        Map<String, String> parameters = new LinkedHashMap<>();
+        parameters.put("tenant", user.getTenant());
+        parameters.put("email", user.getEmail());
+        return Collections.unmodifiableMap(parameters);
     }
 }
